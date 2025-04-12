@@ -4,7 +4,6 @@ import Home from './pages/Home';
 import Donate from './pages/Donate';
 import Dashboard from './pages/Dashboard';
 import Register from './pages/Register';
-import ProtectedRoute from './components/protected/ProtectedRoute';
 import LoginDashboard from './pages/LoginDashboard';
 
 
