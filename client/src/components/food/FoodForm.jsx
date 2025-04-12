@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { addFoodDonation } from '../../services/foodAPI';
+import { addFoodDonation } from '../../services/API';
 
 const FoodForm = () => {
   const [form, setForm] = useState({

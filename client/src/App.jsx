@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 import Home from './pages/Home';
 import Donate from './pages/Donate';
 import Dashboard from './pages/Dashboard';
+import Register from './pages/Register';
 
 const App = () => {
   return (
@@ -13,12 +14,14 @@ const App = () => {
           <Link to="/">Home</Link>
           <Link to="/donate">Donate</Link>
           <Link to="/dashboard">Dashboard</Link>
+          <Link to="/register">Register</Link>
         </div>
       </nav>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/donate" element={<Donate />} />
         <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/register" element={<Register />} />
       </Routes>
     </BrowserRouter>
   );
