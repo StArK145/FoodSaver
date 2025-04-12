@@ -4,6 +4,9 @@ import Home from './pages/Home';
 import Donate from './pages/Donate';
 import Dashboard from './pages/Dashboard';
 import Register from './pages/Register';
+import ProtectedRoute from './components/protected/ProtectedRoute';
+import LoginDashboard from './pages/LoginDashboard';
+
 
 const App = () => {
   return (
@@ -15,13 +18,15 @@ const App = () => {
           <Link to="/donate">Donate</Link>
           <Link to="/dashboard">Dashboard</Link>
           <Link to="/register">Register</Link>
+          <Link to="/LoginDashboard">Login</Link>
         </div>
       </nav>
       <Routes>
+        <Route path="/register" element={<Register />} />
+        <Route path="/LoginDashboard" element={<LoginDashboard/>} />
         <Route path="/" element={<Home />} />
         <Route path="/donate" element={<Donate />} />
         <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/register" element={<Register />} />
       </Routes>
     </BrowserRouter>
   );

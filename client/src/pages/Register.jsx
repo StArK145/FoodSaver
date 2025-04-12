@@ -52,7 +52,7 @@ export default function Register() {
       });
 
       // 3. Redirect after successful registration
-      navigate("/dashboard");
+      navigate("/LoginDashboard");
     } catch (err) {
       setError(err.message);
       console.error("Registration error:", err);

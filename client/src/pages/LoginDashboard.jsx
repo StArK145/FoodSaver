@@ -1,95 +1,103 @@
-// LoginDashboard.js
-import React, { useState } from 'react';
-import { auth, googleProvider } from './firebase';
-import { useHistory } from 'react-router-dom';
-import './LoginDashboard.css'; // Create this CSS file for styling
+// src/pages/Login.jsx
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { signInWithEmailAndPassword } from 'firebase/auth';
+import { auth } from '../services/firebase';
 
-const LoginDashboard = () => {
+const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState(null);
-  const [loading, setLoading] = useState(false);
-  const history = useHistory();
+  const [error, setError] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
 
-  const handleEmailLogin = async (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
-    setLoading(true);
-    setError(null);
-    
-    try {
-      await auth.signInWithEmailAndPassword(email, password);
-      history.push('/dashboard'); // Redirect after successful login
-    } catch (err) {
-      setError(err.message);
-      setLoading(false);
-    }
-  };
+    setIsLoading(true);
+    setError('');
 
-  const handleGoogleLogin = async () => {
-    setLoading(true);
-    setError(null);
-    
     try {
-      await auth.signInWithPopup(googleProvider);
-      history.push('/dashboard'); // Redirect after successful login
+      await signInWithEmailAndPassword(auth, email, password);
+      navigate('/dashboard');
     } catch (err) {
       setError(err.message);
-      setLoading(false);
+      setIsLoading(false);
     }
   };
 
   return (
-    <div className="login-container">
-      <div className="login-card">
-        <h2>Welcome Back</h2>
-        <p>Please login to your account</p>
-        
-        {error && <div className="error-message">{error}</div>}
-        
-        <form onSubmit={handleEmailLogin}>
-          <div className="form-group">
-            <label htmlFor="email">Email</label>
-            <input
-              type="email"
-              id="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="Enter your email"
-              required
-            />
-          </div>
-          
-          <div className="form-group">
-            <label htmlFor="password">Password</label>
-            <input
-              type="password"
-              id="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              placeholder="Enter your password"
-              required
-            />
-          </div>
-          
-          <button type="submit" disabled={loading}>
-            {loading ? 'Logging in...' : 'Login'}
-          </button>
-        </form>
-        
-        <div className="divider">OR</div>
-        
-        <button className="google-btn" onClick={handleGoogleLogin} disabled={loading}>
-          <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" alt="Google logo" />
-          Continue with Google
-        </button>
-        
-        <div className="footer-links">
-          <a href="/forgot-password">Forgot password?</a>
-          <span>Don't have an account? <a href="/signup">Sign up</a></span>
+    <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
+      <div className="sm:mx-auto sm:w-full sm:max-w-md">
+        <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
+          Sign in to your account
+        </h2>
+      </div>
+
+      <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
+        <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
+          {error && (
+            <div className="mb-4 bg-red-50 border-l-4 border-red-500 p-4">
+              <div className="flex">
+                <div className="ml-3">
+                  <p className="text-sm text-red-700">{error}</p>
+                </div>
+              </div>
+            </div>
+          )}
+
+          <form className="space-y-6" onSubmit={handleLogin}>
+            <div>
+              <label htmlFor="email" className="block text-sm font-medium text-gray-700">
+                Email address
+              </label>
+              <div className="mt-1">
+                <input
+                  id="email"
+                  name="email"
+                  type="email"
+                  autoComplete="email"
+                  required
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                />
+              </div>
+            </div>
+
+            <div>
+              <label htmlFor="password" className="block text-sm font-medium text-gray-700">
+                Password
+              </label>
+              <div className="mt-1">
+                <input
+                  id="password"
+                  name="password"
+                  type="password"
+                  autoComplete="current-password"
+                  required
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                />
+              </div>
+            </div>
+
+            <div>
+              <button
+                type="submit"
+                disabled={isLoading}
+                className={`w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 ${
+                  isLoading ? 'opacity-70 cursor-not-allowed' : ''
+                }`}
+              >
+                {isLoading ? 'Signing in...' : 'Sign in'}
+              </button>
+            </div>
+          </form>
         </div>
       </div>
     </div>
   );
 };
 
-export default LoginDashboard;
+export default Login;
