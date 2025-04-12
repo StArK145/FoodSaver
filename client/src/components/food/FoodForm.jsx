@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { addFoodDonation } from '../../services/API';
-// import { user } from '../../services/firebase';
+//  import { user } from '../../services/firebase';
 
 const FoodForm = () => {
   const [form, setForm] = useState({
