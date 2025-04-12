@@ -1,17 +1,19 @@
 import axios from 'axios';
 
-
 export const createUserProfile = async (userData) => {
-  try {
-    const response = await axios.post(
-      "http://localhost:5000/api/auth/register/users",  // This is correct if the server is running on port 5000
-      userData
-    );
-    return response.data;
-  } catch (error) {
-    console.error("Registration error:", error.response || error.message);
+  const res = await fetch("http://localhost:5000/api/auth/register/users", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(userData),
+  });
+
+  if (!res.ok) {
     throw new Error("Failed to create user profile");
   }
+
+  return res.json();
 };
 
 export const addFoodDonation = async (data) => {
