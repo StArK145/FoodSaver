@@ -1,5 +1,5 @@
 // src/pages/Login.jsx
-import { useState, useContext, useEffect } from 'react';
+import { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../services/firebase';
@@ -13,11 +13,7 @@ const Login = () => {
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    if (user) {
-      navigate('/dashboard'); // If already logged in, redirect to dashboard
-    }
-  }, [user, navigate]);
+
 
   const handleLogin = async (e) => {
     e.preventDefault();

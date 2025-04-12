@@ -1,16 +1,19 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import { addFoodDonation } from '../../services/API';
-//  import { user } from '../../services/firebase';
+
+
+
 
 const FoodForm = () => {
+
   const [form, setForm] = useState({
+    donatedBy:'Anyonymous',
     foodType: '',
     quantity: '',
     expiryDate: '',
     contactInfo: '',
     location: '',
-    notes: '',
-    // username:user.uid
+    notes: ''
   });
 
   const [loading, setLoading] = useState(false);

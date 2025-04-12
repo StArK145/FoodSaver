@@ -5,7 +5,8 @@ const router = express.Router();
 
 // Create donation
 router.post('/', async(req, res) => {
-  const { foodType, quantity, expiryDate, contactInfo, location, notes,username } = req.body;
+  const { donatedBy,foodType, quantity, expiryDate, contactInfo, location, notes } = req.body;
+console.log(req.body);
 
    try {
     const donation = new Donation(req.body);
