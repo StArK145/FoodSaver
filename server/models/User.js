@@ -1,11 +1,28 @@
+// server/models/User.js
 import mongoose from "mongoose";
 
 const userSchema = new mongoose.Schema({
-  uid: { type: String, required: true },
+  uid: {
+    type: String,
+    required: true,
+    unique: true,
+  },
   email: String,
-  role: { type: String, enum: ["donor", "receiver", "admin", "volunteer"], default: "donor" },
   name: String,
-  location: String,
-}, { timestamps: true });
+  organizationName: {
+    type: String,
+    required: true,  // Both roles require the organization name
+  },
+  role: {
+    type: String,
+    enum: ["donor", "receiver"],
+    default: "donor",
+  },
+  createdAt: {
+    type: Date,
+    default: Date.now,
+  },
+});
 
-export default mongoose.model("User", userSchema);
+const User = mongoose.model("User", userSchema);
+export default User;
