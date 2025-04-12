@@ -2,7 +2,7 @@
 import express from "express";
 import verifyFirebaseToken from "../middleware/verifyFirebaseToken.js";
 import User from "../models/User.js";
-import { registerUser } from '../controllers/authController.js';
+
 const router = express.Router();
 
 // User registration or login (getting organization name)
