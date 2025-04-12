@@ -20,13 +20,13 @@ export const createUserProfile = async (userData) => {
 };
 
 // Add a new food donation
-export const addFoodDonation = async (donationData) => {
+export const addFoodDonation = async (data) => {
   try {
-    const response = await axios.post(`${BASE_URL}/donations`, donationData);
+    const response = await axios.post('http://localhost:5000/api/donations', data);
     return response.data;
-  } catch (error) {
-    console.error("Donation error:", error.response?.data || error.message);
-    throw new Error("Failed to submit donation");
+  } catch (err) {
+    console.error('Error while adding food donation:', err);
+    throw err;
   }
 };
 

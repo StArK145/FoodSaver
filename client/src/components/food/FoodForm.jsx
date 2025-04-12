@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { addFoodDonation } from '../../services/API';
+// import { user } from '../../services/firebase';
 
 const FoodForm = () => {
   const [form, setForm] = useState({
@@ -8,7 +9,8 @@ const FoodForm = () => {
     expiryDate: '',
     contactInfo: '',
     location: '',
-    notes: ''
+    notes: '',
+    // username:user.uid
   });
 
   const [loading, setLoading] = useState(false);
