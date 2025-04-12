@@ -25,7 +25,7 @@ const Home = () => {
                 <Link to="/donate" className="px-6 py-2 bg-yellow-500 text-white font-medium rounded-md hover:bg-yellow-600 transition-colors duration-200">
                   Donate
                 </Link>
-                <Link to=".Dashboard"  className="ml-4 px-6 py-2 bg-white text-green-700 font-medium rounded-md hover:bg-gray-100 transition-colors duration-200">
+                <Link to="/dashboard"  className="ml-4 px-6 py-2 bg-white text-green-700 font-medium rounded-md hover:bg-gray-100 transition-colors duration-200">
                   Dashboard
                 </Link>
               </div>

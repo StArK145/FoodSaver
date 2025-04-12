@@ -26,6 +26,9 @@ const App = () => {
         <Route path="/" element={<Home />} />
         <Route path="/donate" element={<Donate />} />
         <Route path="/dashboard" element={<Dashboard />} />
+
+        {/* Optional: 404 fallback */}
+         <Route path="*" element={<h1 className="text-center text-2xl p-10 text-red-600">404 - Page Not Found</h1>} /> 
       </Routes>
     </BrowserRouter>
   );
