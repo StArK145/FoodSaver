@@ -115,6 +115,9 @@ const Donate = () => {
         </div>
         
         <FoodForm />
+        <LoadScript googleMapsApiKey="AIzaSyDW9Wb_R2qnxSllRN92mG2e0saPq1q9tHY">
+          <LocationPicker />
+        </LoadScript>
       </div>
     </div>
   );
