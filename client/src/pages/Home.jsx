@@ -12,24 +12,10 @@ const Home = () => {
           <div className="flex items-center justify-between h-16">
             <div className="flex items-center">
               <div className="flex-shrink-0">
-                <div className="flex items-center">
-                  <div className="h-8 w-8 bg-white rounded-full flex items-center justify-center mr-2">
-                    <div className="h-6 w-6 bg-green-500 rounded-full"></div>
-                  </div>
-                  <span className="text-white font-bold text-xl">FoodSaver</span>
-                </div>
+               
               </div>
             </div>
-            <div className="hidden md:block">
-              <div className="ml-4 flex items-center md:ml-6">
-                <Link to="/donate" className="px-6 py-2 bg-yellow-500 text-white font-medium rounded-md hover:bg-yellow-600 transition-colors duration-200">
-                  Donate
-                </Link>
-                <Link to="/dashboard"  className="ml-4 px-6 py-2 bg-white text-green-700 font-medium rounded-md hover:bg-gray-100 transition-colors duration-200">
-                  Dashboard
-                </Link>
-              </div>
-            </div>
+           
             <div className="-mr-2 flex md:hidden">
               <button
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
