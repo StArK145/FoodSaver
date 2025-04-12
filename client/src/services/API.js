@@ -6,12 +6,17 @@ const BASE_URL = 'http://localhost:5000/api';
 // Create user profile (for registration)
 export const createUserProfile = async (userData) => {
   try {
-    const response = await axios.post(`${BASE_URL}/auth/register/users`, userData);
+    const response = await axios.post(
+      "http://localhost:5000/api/auth/register/users",  // This is correct if the server is running on port 5000
+      userData
+    );
     return response.data;
   } catch (error) {
-    console.error("Registration error:", error.response?.data || error.message);
+    console.error("Registration error:", error.response || error.message);
     throw new Error("Failed to create user profile");
   }
+
+  return res.json();
 };
 
 // Add a new food donation
