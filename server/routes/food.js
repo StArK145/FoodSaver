@@ -1,23 +1,40 @@
+// server/routes/food.js
 import express from "express";
-import FoodItem from "../models/FoodItem.js";
 import verifyFirebaseToken from "../middleware/verifyFirebaseToken.js";
+import requireRole from "../middleware/roleMiddleware.js";
+import FoodItem from "../models/FoodItem.js";
+import User from "../models/User.js";
 
 const router = express.Router();
 
-// POST /api/food
-router.post("/", verifyFirebaseToken, async (req, res) => {
-  const { foodType, quantity, expiryDate, location, urgencyLevel, aiTags } = req.body;
-  const donorEmail = req.firebaseUser.email;
-  const donorId = req.firebaseUser.uid;
+// Route for both Donors and Receivers to list food (they need org name)
+router.post("/list", verifyFirebaseToken, async (req, res) => {
+  const { uid } = req.firebaseUser;
+  const { foodType, quantity, expiryDate, location } = req.body;
 
-  const food = await FoodItem.create({ donorId, donorEmail, foodType, quantity, expiryDate, location, urgencyLevel, aiTags });
-  res.status(201).json(food);
-});
+  try {
+    const user = await User.findOne({ uid });
 
-// GET /api/food
-router.get("/", async (req, res) => {
-  const foodList = await FoodItem.find({ status: "available" });
-  res.json(foodList);
+    if (!user || !user.organizationName) {
+      return res.status(400).json({ error: "Organization name required" });
+    }
+
+    const newFoodItem = new FoodItem({
+      uid,
+      foodType,
+      quantity,
+      expiryDate,
+      location,
+      organizationName: user.organizationName,  // Use org name for both Donors and Receivers
+      listedBy: uid,  // Optional, to track the donor
+    });
+
+    await newFoodItem.save();
+    res.status(201).json({ message: "Food item listed successfully", foodItem: newFoodItem });
+  } catch (err) {
+    console.error("Error listing food:", err);
+    res.status(500).json({ error: "Internal server error" });
+  }
 });
 
 export default router;
