@@ -10,7 +10,8 @@ const AppRoutes = () => (
     <Route path="/donate" element={<Donate />} />
     {/* <Route path="/dashboard" element={<Dashboard />} /> */}
     <Route path="*" element={<NotFound />} />
-  </Routes>
+    <Donate/>
+ /
 );
 
 export default AppRoutes;

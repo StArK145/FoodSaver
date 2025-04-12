@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { addFoodDonation } from '../../services/Api'; // Mock API service
+import { addFoodDonation } from '../../services/API';
 
 const FoodForm = () => {
   const [form, setForm] = useState({
@@ -14,110 +14,142 @@ const FoodForm = () => {
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
 
-  const handleChange = e => setForm({ ...form, [e.target.name]: e.target.value });
+  const handleChange = e => {
+    const { name, value } = e.target;
+    setForm(prev => ({ ...prev, [name]: value }));
+  };
 
   const handleSubmit = async e => {
     e.preventDefault();
     setLoading(true);
-    
-    // Mock the API call
-    setTimeout(() => {
-      setLoading(false);
+
+    try {
+      await addFoodDonation(form);
       setSuccess(true);
-      setForm({ foodType: '', quantity: '', expiryDate: '', contactInfo: '', location: '', notes: '' });
-      
-      // Reset success message after 3 seconds
+      setForm({
+        foodType: '',
+        quantity: '',
+        expiryDate: '',
+        contactInfo: '',
+        location: '',
+        notes: ''
+      });
+
       setTimeout(() => setSuccess(false), 3000);
-    }, 1000);
+    } catch (err) {
+      console.error("Submission failed:", err);
+      alert("Failed to submit donation. Please try again.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
-    <div className="bg-white p-6 shadow-lg rounded-2xl">
+    <div className="bg-white p-6 shadow-lg rounded-2xl max-w-lg mx-auto">
       <h2 className="text-xl font-medium text-green-700 mb-6 text-center">Help Fight Food Waste</h2>
-      
+
       {success && (
-        <div className="bg-green-100 border-l-4 border-green-500 text-green-700 p-4 mb-6 rounded-lg animate-fade-in-down">
+        <div className="bg-green-100 border-l-4 border-green-500 text-green-700 p-4 mb-6 rounded-lg">
           <p className="font-medium">Thank you for your donation!</p>
           <p className="text-sm">Your contribution will help reduce food waste and support those in need.</p>
         </div>
       )}
-      
-      <form className="space-y-2" onSubmit={handleSubmit}>
-        <FormField 
-          icon={<Icons.Food />} 
-          name="foodType" 
-          placeholder="Food Type (e.g., Vegetables, Canned Goods)" 
-          value={form.foodType} 
-          onChange={handleChange} 
-          required 
-        />
-        
-        <FormField 
-          icon={<Icons.Quantity />} 
-          name="quantity" 
-          placeholder="Quantity (e.g., 2kg, 5 boxes)" 
-          value={form.quantity} 
-          onChange={handleChange} 
-          required 
-        />
-        
-        <FormField 
-          icon={<Icons.Calendar />} 
-          name="expiryDate" 
-          type="date" 
-          placeholder="" 
-          value={form.expiryDate} 
-          onChange={handleChange} 
-          required 
-          helpText="Expiry date or best before date"
-        />
-        
-        <FormField 
-          icon={<Icons.Contact />} 
-          name="contactInfo" 
-          placeholder="Contact Information" 
-          value={form.contactInfo} 
-          onChange={handleChange} 
-          required 
-        />
-        
-        <FormField 
-          icon={<Icons.Location />} 
-          name="location" 
-          placeholder="Pickup Location" 
-          value={form.location} 
-          onChange={handleChange} 
-          required 
-        />
-        
-        <TextAreaField 
-          icon={<Icons.Notes />} 
-          name="notes" 
-          placeholder="Additional notes (pickup instructions, food details, etc.)" 
-          value={form.notes} 
-          onChange={handleChange} 
-        />
 
-        <div className="flex justify-center pt-4">
+      <form className="space-y-4" onSubmit={handleSubmit}>
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-1">Food Type</label>
+          <input
+            type="text"
+            name="foodType"
+            value={form.foodType}
+            onChange={handleChange}
+            placeholder="e.g., Vegetables, Canned Goods"
+            required
+            className="w-full border border-gray-300 rounded-md p-2 outline-none focus:ring-2 focus:ring-green-500"
+          />
+        </div>
+
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-1">Quantity</label>
+          <input
+            type="text"
+            name="quantity"
+            value={form.quantity}
+            onChange={handleChange}
+            placeholder="e.g., 2kg, 5 boxes"
+            required
+            className="w-full border border-gray-300 rounded-md p-2 outline-none focus:ring-2 focus:ring-green-500"
+          />
+        </div>
+
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-1">Expiry Date</label>
+          <input
+            type="date"
+            name="expiryDate"
+            value={form.expiryDate}
+            onChange={handleChange}
+            required
+            className="w-full border border-gray-300 rounded-md p-2 outline-none focus:ring-2 focus:ring-green-500"
+          />
+        </div>
+
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-1">Contact Info</label>
+          <input
+            type="text"
+            name="contactInfo"
+            value={form.contactInfo}
+            onChange={handleChange}
+            placeholder="Phone or Email"
+            required
+            className="w-full border border-gray-300 rounded-md p-2 outline-none focus:ring-2 focus:ring-green-500"
+          />
+        </div>
+
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-1">Pickup Location</label>
+          <input
+            type="text"
+            name="location"
+            value={form.location}
+            onChange={handleChange}
+            placeholder="e.g., 123 Street, City"
+            required
+            className="w-full border border-gray-300 rounded-md p-2 outline-none focus:ring-2 focus:ring-green-500"
+          />
+        </div>
+
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-1">Additional Notes</label>
+          <textarea
+            name="notes"
+            value={form.notes}
+            onChange={handleChange}
+            placeholder="Pickup instructions or food condition"
+            className="w-full border border-gray-300 rounded-md p-2 outline-none focus:ring-2 focus:ring-green-500 resize-none"
+            rows="4"
+          />
+        </div>
+
+        <div className="flex justify-center">
           <button
             type="submit"
             disabled={loading}
-            className={`
-              ${loading ? 'bg-green-400' : 'bg-green-600 hover:bg-green-700'} 
-              text-white py-3 px-8 rounded-full transition duration-300 
-              flex items-center font-medium shadow-md
-            `}
+            className={`w-full py-3 px-4 rounded-full text-white font-medium transition duration-300 ${
+              loading ? 'bg-green-400' : 'bg-green-600 hover:bg-green-700'
+            }`}
           >
             {loading ? (
-              <>
-                <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+              <div className="flex justify-center items-center">
+                <svg className="animate-spin h-5 w-5 mr-2 text-white" viewBox="0 0 24 24">
                   <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                  <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                  <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z" />
                 </svg>
                 Processing...
-              </>
+              </div>
             ) : (
-              <>Donate Now 🎁</>
+              'Donate Now 🎁'
             )}
           </button>
         </div>

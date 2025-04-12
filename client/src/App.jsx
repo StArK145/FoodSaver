@@ -17,7 +17,7 @@ function App() {
         <Route path="/dashboard" element={<Dashboard />} />
 
         {/* Optional: 404 fallback */}
-        {/* <Route path="*" element={<h1 className="text-center text-2xl p-10 text-red-600">404 - Page Not Found</h1>} /> */}
+         <Route path="*" element={<h1 className="text-center text-2xl p-10 text-red-600">404 - Page Not Found</h1>} /> 
       </Routes>
     </Router>
   );
