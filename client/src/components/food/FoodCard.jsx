@@ -1,20 +1,11 @@
-import React from 'react';
-
-const FoodCard = ({ food, onReserve }) => {
+export default function FoodCard({ item }) {
   return (
-    <div className="bg-white shadow-md rounded-2xl p-4 m-4 w-full md:w-72">
-      <h2 className="text-xl font-bold text-green-700">{food.foodType}</h2>
-      <p className="text-sm">Quantity: {food.quantity}</p>
-      <p className="text-sm">Expires on: {new Date(food.expiryDate).toLocaleDateString()}</p>
-      <p className="text-sm">Contact: {food.contactInfo}</p>
-      <button
-        className="mt-3 bg-green-600 text-white px-4 py-1 rounded-full hover:bg-green-800"
-        onClick={() => onReserve(food._id)}
-      >
-        Reserve
-      </button>
+    <div className="bg-white rounded shadow p-4 border">
+      <h3 className="text-xl font-semibold">🍱 {item.foodType}</h3>
+      <p>Quantity: {item.quantity} kg</p>
+      <p>Expires on: {new Date(item.expiryDate).toLocaleDateString()}</p>
+      <p>Contact: {item.contactInfo}</p>
+      <p>Status: <span className="font-medium text-green-700">{item.status}</span></p>
     </div>
   );
-};
-
-export default FoodCard;
+}

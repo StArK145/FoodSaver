@@ -1,31 +1,12 @@
-import React, { useEffect, useState } from "react";
-import { getFoods, reserveFood } from "../../services/foodAPI";
 import FoodCard from "./FoodCard";
 
-const FoodList = () => {
-  const [foods, setFoods] = useState([]);
-
-  const fetchData = async () => {
-    const res = await getFoods();
-    setFoods(res.data);
-  };
-
-  const handleReserve = async (id) => {
-    await reserveFood(id);
-    fetchData();
-  };
-
-  useEffect(() => {
-    fetchData();
-  }, []);
-
+export default function FoodList({ items }) {
+  if (!items.length) return <p>No food items available.</p>;
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-4">
-      {foods.map((food) => (
-        <FoodCard key={food._id} food={food} onReserve={handleReserve} />
+    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+      {items.map((item, idx) => (
+        <FoodCard key={idx} item={item} />
       ))}
     </div>
   );
-};
-
-export default FoodList;
+}
