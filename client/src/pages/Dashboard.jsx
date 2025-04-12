@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { getFoodDonations, reserveFood } from '../services/foodAPI';
+import { getFoodDonations, reserveFood } from '../services/API';
 import FoodCard from '../components/food/FoodCard';
 
 const Dashboard = () => {

@@ -1,22 +1,21 @@
-// server/middleware/verifyFirebaseToken.js
-import admin from "../config/firebaseAdmin.js";
+import admin from '../config/firebaseAdmin.js';
 
 const verifyFirebaseToken = async (req, res, next) => {
   const authHeader = req.headers.authorization;
-
-  if (!authHeader || !authHeader.startsWith("Bearer ")) {
-    return res.status(401).json({ error: "Unauthorized: No token provided" });
+  
+  if (!authHeader || !authHeader.startsWith('Bearer ')) {
+    return res.status(401).json({ message: 'Authorization token required' });
   }
 
-  const token = authHeader.split(" ")[1];
+  const token = authHeader.split(' ')[1];
 
   try {
     const decodedToken = await admin.auth().verifyIdToken(token);
-    req.firebaseUser = decodedToken;
+    req.user = decodedToken; // Contains uid, email, etc.
     next();
-  } catch (err) {
-    console.error("Token verification failed:", err.message);
-    return res.status(401).json({ error: "Unauthorized: Invalid token" });
+  } catch (error) {
+    console.error('Error verifying token:', error);
+    return res.status(403).json({ message: 'Invalid or expired token' });
   }
 };
 

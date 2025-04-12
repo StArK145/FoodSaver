@@ -1,51 +1,5 @@
 import React, { useState } from 'react';
-
-// Enhanced icon components
-const Icons = {
-  Food: () => <span className="text-green-600 text-lg mr-3">🍽️</span>,
-  Quantity: () => <span className="text-green-600 text-lg mr-3">⚖️</span>,
-  Calendar: () => <span className="text-green-600 text-lg mr-3">📅</span>,
-  Contact: () => <span className="text-green-600 text-lg mr-3">📞</span>,
-  Notes: () => <span className="text-green-600 text-lg mr-3">📝</span>,
-  Location: () => <span className="text-green-600 text-lg mr-3">📍</span>
-};
-
-// Input field component for consistent styling
-const FormField = ({ icon, name, placeholder, type = "text", value, onChange, required = false, helpText }) => (
-  <div className="mb-6">
-    <div className="flex items-center border border-gray-300 rounded-lg px-3 focus-within:ring-2 focus-within:ring-green-500 focus-within:border-green-500 shadow-sm">
-      {icon}
-      <input
-        name={name}
-        type={type}
-        placeholder={placeholder}
-        className="w-full p-3 border-none focus:outline-none rounded-lg"
-        value={value}
-        onChange={onChange}
-        required={required}
-      />
-    </div>
-    {helpText && <p className="text-xs text-gray-500 mt-1 ml-4">{helpText}</p>}
-  </div>
-);
-
-// Textarea field component
-const TextAreaField = ({ icon, name, placeholder, value, onChange }) => (
-  <div className="mb-6">
-    <div className="flex items-start border border-gray-300 rounded-lg px-3 focus-within:ring-2 focus-within:ring-green-500 focus-within:border-green-500 shadow-sm">
-      <div className="pt-3">
-        {icon}
-      </div>
-      <textarea
-        name={name}
-        placeholder={placeholder}
-        className="w-full p-3 border-none focus:outline-none rounded-lg h-24"
-        value={value}
-        onChange={onChange}
-      />
-    </div>
-  </div>
-);
+import { addFoodDonation } from '../../services/Api'; // Mock API service
 
 const FoodForm = () => {
   const [form, setForm] = useState({
