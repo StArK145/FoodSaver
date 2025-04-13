@@ -26,8 +26,7 @@ export const createUserProfile = async (userData) => {
 export const fetchUserType = async (email) => {
   try {
       const response = await axios.get(`http://localhost:5000/api/users/type/${email}`);
-      console.log(response.data.userType);
-      
+      return response.data.userType
   } catch (error) {
       console.error("Error fetching user type:", error);
   }

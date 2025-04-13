@@ -1,5 +1,5 @@
-import React, { useState, useCallback } from 'react';
-import { GoogleMap, Marker } from '@react-google-maps/api';
+import React, { useState, useCallback, useRef } from 'react';
+import { GoogleMap } from '@react-google-maps/api';
 
 const mapContainerStyle = {
   width: '100%',
@@ -9,6 +9,8 @@ const mapContainerStyle = {
 const LocationPicker = () => {
   const [location, setLocation] = useState(null);
   const [address, setAddress] = useState('');
+  const mapRef = useRef(null);
+  const markerRef = useRef(null);
 
   const getLocation = () => {
     if (navigator.geolocation) {
@@ -54,6 +56,22 @@ const LocationPicker = () => {
     });
   }, []);
 
+  const onMapLoad = (map) => {
+    mapRef.current = map;
+
+    if (location && window.google?.maps?.marker?.AdvancedMarkerElement) {
+      // Create or update AdvancedMarkerElement
+      if (markerRef.current) {
+        markerRef.current.position = location;
+      } else {
+        markerRef.current = new window.google.maps.marker.AdvancedMarkerElement({
+          map,
+          position: location,
+        });
+      }
+    }
+  };
+
   return (
     <div className="p-4 bg-white rounded-lg shadow-md">
       <button
@@ -70,10 +88,8 @@ const LocationPicker = () => {
               mapContainerStyle={mapContainerStyle}
               center={location}
               zoom={15}
-            >
-              <Marker position={location} />
-            </GoogleMap>
-
+              onLoad={onMapLoad}
+            />
             <p className="mt-2 text-gray-600">
               Latitude: {location.lat.toFixed(4)} | Longitude: {location.lng.toFixed(4)}
             </p>

@@ -1,7 +1,8 @@
 import React, { useState,useContext } from "react";
 import FoodForm from "../components/food/FoodForm";
+import { auth } from "../services/firebase";
 import { LoadScript, GoogleMap, Marker } from "@react-google-maps/api";
-import { AuthProvider } from "../context/AuthContext";
+// import { AuthProvider } from "../context/AuthContext";
 import { fetchUserType } from "../services/API";
 
 // Logo component
@@ -98,12 +99,20 @@ const LocationPicker = () => {
 
 // Main Donate page
 const Donate = () => {
-  const [ userType, loading ] = useState(fetchUserType)
   
+  const [isdDonor,setDonor] = useState(null)
+ 
+  const checkUser = async () => {
+    const email =auth.currentUser.email;
+    const userType = await fetchUserType(email);
+    setDonor(userType)
+    
+  };
+  checkUser()
   
 
   
-  return (userType==="donor"?
+  return (isdDonor==="donor"?
     <div className="flex min-h-screen bg-gray-50">
       <Sidebar />
       <div className="flex-1 p-8">
