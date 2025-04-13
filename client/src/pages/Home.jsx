@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import OurProcess from './OurProcess';
 
 const Home = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -103,9 +104,7 @@ const Home = () => {
                   <Link to="/donate" className="inline-block py-4 px-8 text-base font-semibold rounded-full text-white bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 shadow-lg hover:shadow-xl transform transition duration-200 hover:-translate-y-1">
                     Donate Now
                   </Link>
-                  <a href="#volunteer" className="inline-block py-4 px-8 text-base font-semibold rounded-full text-green-700 bg-white border-2 border-green-500 hover:bg-green-50 transition duration-200 text-center">
-                    Volunteer With Us
-                  </a>
+                  
                 </div>
                 
                 <p className="mt-6 text-gray-600 font-medium">
@@ -237,14 +236,14 @@ const Home = () => {
             </div>
           </div>
           
-          <div className="mt-16 text-center">
-            <a href="#learn-more" className="inline-flex items-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-green-600 hover:bg-green-700 md:py-4 md:text-lg md:px-10">
-              Learn More About Our Process
-              <svg className="ml-2 h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                <path fillRule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clipRule="evenodd" />
-              </svg>
-            </a>
-          </div>
+          <div className="flex justify-center mt-8">
+  <Link to="/process">
+    <button className="bg-green-600 text-white px-6 py-3 rounded-full hover:bg-green-700 transition duration-300">
+      Learn More About Our Process
+    </button>
+  </Link>
+</div>
+
         </div>
       </div>
 
