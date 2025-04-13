@@ -140,9 +140,22 @@ const Donate = () => {
           </LoadScript>
         </div>
       </div>
-    </div>: <div className="text-red-600 text-center p-10 text-xl">
-      You are not a donor. Access Denied.
+    </div>: () => (
+  <div className="flex items-center justify-center min-h-screen bg-red-50">
+    <div className="bg-white border border-red-200 shadow-lg rounded-xl p-8 max-w-md text-center">
+      <div className="text-4xl mb-4 text-red-500">🚫</div>
+      <h2 className="text-2xl font-semibold text-red-600 mb-2">
+        Access Denied
+      </h2>
+      <p className="text-red-500 mb-4">
+        Oops! It looks like you're not registered as a donor.
+      </p>
+      <p className="text-sm text-gray-500">
+        Only verified donors can access the donation page. Please contact support or update your account to continue.
+      </p>
     </div>
+  </div>
+)
   );
 };
 
