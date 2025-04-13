@@ -9,6 +9,7 @@ import ProtectedRoute from "./components/protected/ProtectedRoute";
 import { AuthContext } from "./context/AuthContext";
 import { auth } from "./services/firebase";
 import { signOut } from "firebase/auth";
+import OurProcess from './pages/OurProcess';
 
 
 function AppContent() {
@@ -71,6 +72,7 @@ function AppContent() {
             </h1>
           }
         />
+        <Route path="/process" element={<OurProcess />} />
       </Routes>
     </>
   );
