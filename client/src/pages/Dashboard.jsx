@@ -1,6 +1,12 @@
 import FoodList from "../components/food/FoodList";
 import React from "react";
 
+
+
+
+
+
+
 const demoData = [
   { foodType: "Rice", quantity: 10, expiryDate: "2025-04-20", contactInfo: "1234567890", status: "available" },
   { foodType: "Bread", quantity: 5, expiryDate: "2025-04-14", contactInfo: "9876543210", status: "available" },
@@ -15,3 +21,6 @@ export default function Dashboard() {
     </div>
   );
 }
+
+
+

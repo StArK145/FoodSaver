@@ -1,5 +1,6 @@
 import React, { useState,useEffect } from 'react';
 import { addFoodDonation } from '../../services/API';
+import { auth } from '../../services/firebase';
 
 
 
@@ -7,7 +8,7 @@ import { addFoodDonation } from '../../services/API';
 const FoodForm = () => {
 
   const [form, setForm] = useState({
-    donatedBy:'Anyonymous',
+    donatedBy:auth.currentUser.uid,
     foodType: '',
     quantity: '',
     expiryDate: '',

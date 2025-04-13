@@ -1,7 +1,7 @@
 // src/pages/Login.jsx
 import { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { signInWithEmailAndPassword } from 'firebase/auth';
+import {setPersistence,browserLocalPersistence, signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../services/firebase';
 import { AuthContext } from '../context/AuthContext'; // import AuthContext
 
@@ -19,9 +19,16 @@ const Login = () => {
     e.preventDefault();
     setIsLoading(true);
     setError('');
-
+  
     try {
+      // Set persistence to browser local (stay logged in even after close)
+      await setPersistence(auth, browserLocalPersistence);
+  
+      // Sign in after setting persistence
       await signInWithEmailAndPassword(auth, email, password);
+     
+      
+      // Navigate to dashboard
       navigate('/dashboard');
     } catch (err) {
       setError(err.message);

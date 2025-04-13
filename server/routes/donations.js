@@ -12,7 +12,7 @@ console.log(req.body);
     const donation = new Donation(req.body);
     await donation.save();
 
-    console.log("Donation saved to MongoDB:", donation);
+    
     res.status(201).json({ message: "Donation successfully saved!" });
   } catch (err) {
     console.error("Error saving donation:", err);

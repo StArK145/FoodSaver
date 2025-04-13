@@ -1,5 +1,5 @@
 import { initializeApp } from "firebase/app";
-import { getAuth,signInWithEmailAndPassword  } from "firebase/auth";
+import { getAuth,setPersistence, browserLocalPersistence,signInWithEmailAndPassword  } from "firebase/auth";
 
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
@@ -13,6 +13,19 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const user = auth.currentUser;
+export const loginUser = (email, password) => {
+  setPersistence(auth, browserLocalPersistence)
+    .then(() => {
+      return signInWithEmailAndPassword(auth, email, password);
+    })
+    .then((userCredential) => {
+      // Login successful
+      console.log("Logged in:", userCredential.user.email);
+    })
+    .catch((error) => {
+      console.error("Login error:", error.message);
+    });
+};
 
 
 export {user, auth,signInWithEmailAndPassword };
