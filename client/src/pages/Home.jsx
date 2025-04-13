@@ -103,9 +103,7 @@ const Home = () => {
                   <Link to="/donate" className="inline-block py-4 px-8 text-base font-semibold rounded-full text-white bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 shadow-lg hover:shadow-xl transform transition duration-200 hover:-translate-y-1">
                     Donate Now
                   </Link>
-                  <a href="#volunteer" className="inline-block py-4 px-8 text-base font-semibold rounded-full text-green-700 bg-white border-2 border-green-500 hover:bg-green-50 transition duration-200 text-center">
-                    Volunteer With Us
-                  </a>
+                  
                 </div>
                 
                 <p className="mt-6 text-gray-600 font-medium">
