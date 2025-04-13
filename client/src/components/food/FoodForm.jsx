@@ -1,8 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import { addFoodDonation } from '../../services/API';
 
+
+
+
 const FoodForm = () => {
+
   const [form, setForm] = useState({
+    donatedBy:'Anyonymous',
     foodType: '',
     quantity: '',
     expiryDate: '',

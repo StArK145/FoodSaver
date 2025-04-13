@@ -4,6 +4,7 @@ import cors from "cors";
 import connectDB from "./config/db.js";
 
 import authRoutes from "./routes/auth.js";
+import getFoodDonations  from "./routes/donations.js";
 
 dotenv.config();
 
@@ -18,6 +19,7 @@ connectDB();
 
 // Routes
 app.use("/api/auth", authRoutes);
+app.use('/api/donations', getFoodDonations);
 
 app.get("/", (req, res) => res.send("🧠 FoodSaver Backend is Live"));
 
